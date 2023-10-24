@@ -1,0 +1,311 @@
+{
+  "doc_type": "pipeline",
+  "version": "3.0",
+  "json_schema": "http://api.dataplatform.ibm.com/schemas/common-pipeline/pipeline-flow/pipeline-flow-v3-schema.json",
+  "id": "elyra-auto-generated-pipeline",
+  "primary_pipeline": "primary",
+  "pipelines": [
+    {
+      "id": "primary",
+      "nodes": [
+        {
+          "id": "34fcb697-6d7f-405b-9601-1c335a47db3e",
+          "type": "execution_node",
+          "op": "execute-notebook-node",
+          "app_data": {
+            "component_parameters": {
+              "dependencies": [],
+              "include_subdirectories": false,
+              "outputs": [
+                "data/noaa-weather-data-jfk-airport/jfk_weather.csv"
+              ],
+              "env_vars": [
+                {
+                  "env_var": "DATASET_URL",
+                  "value": "https://dax-cdn.cdn.appdomain.cloud/dax-noaa-weather-data-jfk-airport/1.1.4/noaa-weather-data-jfk-airport.tar.gz"
+                },
+                {
+                  "env_var": "ELYRA_RUNTIME_ENV"
+                }
+              ],
+              "kubernetes_pod_annotations": [],
+              "kubernetes_pod_labels": [],
+              "kubernetes_secrets": [],
+              "kubernetes_shared_mem_size": {},
+              "kubernetes_tolerations": [],
+              "mounted_volumes": [],
+              "filename": "load_data.ipynb",
+              "runtime_image": "amancevice/pandas@sha256:f74bef70689b19d3cd610ef67227fce1c9a6ed8fa950ac2aff39ce72310d5520"
+            },
+            "label": "Load Data",
+            "ui_data": {
+              "label": "Load Data",
+              "image": "/static/elyra/notebook.svg",
+              "x_pos": 50,
+              "y_pos": 107.5,
+              "description": "Run notebook file"
+            }
+          },
+          "inputs": [
+            {
+              "id": "inPort",
+              "app_data": {
+                "ui_data": {
+                  "cardinality": {
+                    "min": 0,
+                    "max": -1
+                  },
+                  "label": "Input Port"
+                }
+              }
+            }
+          ],
+          "outputs": [
+            {
+              "id": "outPort",
+              "app_data": {
+                "ui_data": {
+                  "cardinality": {
+                    "min": 0,
+                    "max": -1
+                  },
+                  "label": "Output Port"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "id": "d2ac95e8-95a6-49c5-b429-8b486f33b100",
+          "type": "execution_node",
+          "op": "execute-notebook-node",
+          "app_data": {
+            "component_parameters": {
+              "dependencies": [],
+              "include_subdirectories": false,
+              "outputs": [
+                "data/noaa-weather-data-jfk-airport/jfk_weather_cleaned.csv"
+              ],
+              "env_vars": [],
+              "kubernetes_pod_annotations": [],
+              "kubernetes_pod_labels": [],
+              "kubernetes_secrets": [],
+              "kubernetes_shared_mem_size": {},
+              "kubernetes_tolerations": [],
+              "mounted_volumes": [],
+              "filename": "Part 1 - Data Cleaning.ipynb",
+              "runtime_image": "amancevice/pandas@sha256:f74bef70689b19d3cd610ef67227fce1c9a6ed8fa950ac2aff39ce72310d5520"
+            },
+            "label": "",
+            "ui_data": {
+              "label": "Part 1 - Data Cleaning.ipynb",
+              "image": "/static/elyra/notebook.svg",
+              "x_pos": 290,
+              "y_pos": 107.5,
+              "description": "Run notebook file"
+            }
+          },
+          "inputs": [
+            {
+              "id": "inPort",
+              "app_data": {
+                "ui_data": {
+                  "cardinality": {
+                    "min": 0,
+                    "max": -1
+                  },
+                  "label": "Input Port"
+                }
+              },
+              "links": [
+                {
+                  "id": "1ac44cbc-5e2b-448e-9028-d5d8f6451c39",
+                  "node_id_ref": "34fcb697-6d7f-405b-9601-1c335a47db3e",
+                  "port_id_ref": "outPort"
+                }
+              ]
+            }
+          ],
+          "outputs": [
+            {
+              "id": "outPort",
+              "app_data": {
+                "ui_data": {
+                  "cardinality": {
+                    "min": 0,
+                    "max": -1
+                  },
+                  "label": "Output Port"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "id": "350526e6-0116-4909-81c0-fb8cae46eb54",
+          "type": "execution_node",
+          "op": "execute-notebook-node",
+          "app_data": {
+            "label": "",
+            "component_parameters": {
+              "dependencies": [],
+              "include_subdirectories": false,
+              "outputs": [],
+              "env_vars": [],
+              "kubernetes_pod_annotations": [],
+              "kubernetes_pod_labels": [],
+              "kubernetes_secrets": [],
+              "kubernetes_shared_mem_size": {},
+              "kubernetes_tolerations": [],
+              "mounted_volumes": [],
+              "filename": "Part 3 - Time Series Forecasting.ipynb"
+            },
+            "ui_data": {
+              "label": "Part 3 - Time Series Forecasting.ipynb",
+              "image": "/static/elyra/notebook.svg",
+              "x_pos": 530,
+              "y_pos": 50,
+              "description": "Run notebook file"
+            }
+          },
+          "inputs": [
+            {
+              "id": "inPort",
+              "app_data": {
+                "ui_data": {
+                  "cardinality": {
+                    "min": 0,
+                    "max": -1
+                  },
+                  "label": "Input Port"
+                }
+              },
+              "links": [
+                {
+                  "id": "0205490b-cd1e-40d2-8593-dc0ba393e157",
+                  "node_id_ref": "d2ac95e8-95a6-49c5-b429-8b486f33b100",
+                  "port_id_ref": "outPort"
+                }
+              ]
+            }
+          ],
+          "outputs": [
+            {
+              "id": "outPort",
+              "app_data": {
+                "ui_data": {
+                  "cardinality": {
+                    "min": 0,
+                    "max": -1
+                  },
+                  "label": "Output Port"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "id": "f0dc5603-4219-425a-9941-281f1f72745a",
+          "type": "execution_node",
+          "op": "execute-notebook-node",
+          "app_data": {
+            "component_parameters": {
+              "dependencies": [],
+              "include_subdirectories": false,
+              "outputs": [],
+              "env_vars": [],
+              "kubernetes_pod_annotations": [],
+              "kubernetes_pod_labels": [],
+              "kubernetes_secrets": [],
+              "kubernetes_shared_mem_size": {},
+              "kubernetes_tolerations": [],
+              "mounted_volumes": [],
+              "filename": "Part 2 - Data Analysis.ipynb"
+            },
+            "label": "",
+            "ui_data": {
+              "label": "Part 2 - Data Analysis.ipynb",
+              "image": "/static/elyra/notebook.svg",
+              "x_pos": 530,
+              "y_pos": 165,
+              "description": "Run notebook file"
+            }
+          },
+          "inputs": [
+            {
+              "id": "inPort",
+              "app_data": {
+                "ui_data": {
+                  "cardinality": {
+                    "min": 0,
+                    "max": -1
+                  },
+                  "label": "Input Port"
+                }
+              },
+              "links": [
+                {
+                  "id": "a518b43a-186c-4bf7-ab4e-26aaeb09175e",
+                  "node_id_ref": "d2ac95e8-95a6-49c5-b429-8b486f33b100",
+                  "port_id_ref": "outPort"
+                }
+              ]
+            }
+          ],
+          "outputs": [
+            {
+              "id": "outPort",
+              "app_data": {
+                "ui_data": {
+                  "cardinality": {
+                    "min": 0,
+                    "max": -1
+                  },
+                  "label": "Output Port"
+                }
+              }
+            }
+          ]
+        }
+      ],
+      "app_data": {
+        "ui_data": {
+          "comments": [
+            {
+              "id": "b0ad52ff-d888-4c81-8075-b4a24c369bf1",
+              "x_pos": 30,
+              "y_pos": 50,
+              "width": 175,
+              "height": 42,
+              "content": "Download the data",
+              "associated_id_refs": [
+                {
+                  "id": "9d1ef177-e264-4d7d-a688-60ed01ef61a7",
+                  "node_ref": "34fcb697-6d7f-405b-9601-1c335a47db3e"
+                }
+              ]
+            }
+          ]
+        },
+        "version": 8,
+        "properties": {
+          "name": "hello-generic-world",
+          "runtime": "Generic",
+          "pipeline_defaults": {
+            "mounted_volumes": [],
+            "kubernetes_pod_annotations": [],
+            "kubernetes_pod_labels": [],
+            "kubernetes_tolerations": [],
+            "kubernetes_shared_mem_size": {},
+            "env_vars": [],
+            "kubernetes_secrets": [],
+            "runtime_image": "amancevice/pandas@sha256:f74bef70689b19d3cd610ef67227fce1c9a6ed8fa950ac2aff39ce72310d5520"
+          },
+          "description": "Basic intro"
+        }
+      },
+      "runtime_ref": ""
+    }
+  ],
+  "schemas": []
+}
